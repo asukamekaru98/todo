@@ -1,25 +1,15 @@
 # TODOアプリ
 
-React (Vite + TypeScript) のフロントエンドと、Node.js/Express + SQLite のバックエンドで構成されたTODOアプリです。
+React (Vite + TypeScript) のフロントエンドのTODOアプリです。データはブラウザのlocalStorageに保存されます。
+
+**公開URL:** https://asukamekaru98.github.io/todo/
 
 ## 構成
 
-- `server/` — Express製のREST API (SQLiteで永続化)
-- `client/` — React + TypeScriptのフロントエンド (Vite)
+- `client/` — React + TypeScriptのフロントエンド (Vite)。データはlocalStorageに保存
+- `server/` — Express + SQLiteのREST APIサーバー(現在client/からは利用していません。未使用ですが参考実装として残しています)
 
 ## セットアップと起動
-
-### 1. バックエンド
-
-```bash
-cd server
-npm install
-npm run dev   # http://localhost:3001
-```
-
-### 2. フロントエンド
-
-別のターミナルで:
 
 ```bash
 cd client
@@ -27,16 +17,9 @@ npm install
 npm run dev   # http://localhost:5173
 ```
 
-ブラウザで http://localhost:5173 を開いてください。`/api` へのリクエストはViteの開発サーバーからバックエンド (`http://localhost:3001`) にプロキシされます。
+## デプロイ
 
-## API
-
-| メソッド | パス | 説明 |
-| --- | --- | --- |
-| GET | `/api/todos` | 一覧取得 |
-| POST | `/api/todos` | 追加 (`{ "title": string }`) |
-| PATCH | `/api/todos/:id` | 更新 (`{ "title"?: string, "completed"?: boolean }`) |
-| DELETE | `/api/todos/:id` | 削除 |
+`master` ブランチへのpushで `.github/workflows/deploy.yml` が自動的に `client/` をビルドし、GitHub Pagesに公開します。
 
 ## 機能
 
@@ -44,4 +27,4 @@ npm run dev   # http://localhost:5173
 - 完了/未完了の切り替え
 - タイトルのダブルクリックによる編集
 - すべて / 未完了 / 完了済み のフィルター
-- SQLiteによるデータの永続化
+- localStorageによるデータの永続化(ブラウザ・端末ごと)
