@@ -3,7 +3,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = path.join(__dirname, "..", "todo.db");
+// Vercelのサーバーレス関数はソースツリーが読み取り専用で、/tmpのみ書き込み可能。
+// そのためVercel上ではDBがインスタンスごと・コールドスタートごとにリセットされる。
+const dbPath = process.env.VERCEL
+  ? "/tmp/todo.db"
+  : path.join(__dirname, "..", "todo.db");
 
 export const db = new Database(dbPath);
 
